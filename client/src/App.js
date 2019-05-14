@@ -29,7 +29,17 @@ class App extends React.Component {
       const name = NAME === "" ? "Nameless individual" : NAME // No nameless people allowed
       const message = { name: name, message: this.messageTag.value };
       this.update(message);
+      this.setState({ currentMessage: "" });
     }
+  }
+
+  handleChange(event) {
+    if(event.target.value!=="\n") this.setState({ currentMessage: event.target.value });
+  }
+
+  keyPressed(e) {
+    // e.preventDefault();
+    if(e.key==="Enter") this.clickedButton();
   }
 
   clearChatWindow() {
@@ -78,9 +88,23 @@ class App extends React.Component {
           <div className="send">Send message</div>
           <input type="text" placeholder="Enter name of chatroom"/>
           <input type="text" placeholder="Enter your username"/>
-          <textarea name="message" id="message" cols="30" rows="10" placeholder="Enter message"></textarea>
+          <textarea 
+            name="message" 
+            id="message" 
+            cols="30" 
+            rows="10" 
+            placeholder="Enter message"
+            onKeyPress = { e => this.keyPressed(e) }
+            onChange = { e => this.handleChange(e) }
+            value = {this.state.currentMessage}
+          />
           <button className="clearChatWindow" onClick={() => this.clearChatWindow() }>Clear chat</button>
-          <button className="btn" onClick={() => this.clickedButton() }>Send</button>
+          <button 
+            className="btn" 
+            onClick={() => this.clickedButton() }
+          >
+              Send
+          </button>
           <div id="messages"></div>
           <div className="reacted">{this.getChatWindow()}</div>
         </div>
