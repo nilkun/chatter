@@ -1,8 +1,7 @@
 import React from 'react';
-// import './App.css';
+import "./App.scss";
 
 const url="http://localhost:2001/messages";
-const NAME = "nilkun";
 
 
 class App extends React.Component {
@@ -10,7 +9,8 @@ class App extends React.Component {
     super(props);
     this.state = {
       messages: [],
-      currentMessage: ""
+      currentMessage: "",
+      username: ""
     }
   this.counter = 0; // to give all messages an individual local key, but should get _id instead.
   this.messageTag = ""; // The message to be sent
@@ -26,7 +26,7 @@ class App extends React.Component {
 
   clickedButton() {
     if(this.messageTag.value!=="") { // No empty messages allowed
-      const name = NAME === "" ? "Nameless individual" : NAME // No nameless people allowed
+      const name = this.state.username === "" ? "Nameless individual" : this.state.username // No nameless people allowed
       const message = { name: name, message: this.messageTag.value };
       this.update(message);
       this.setState({ currentMessage: "" });
@@ -38,7 +38,6 @@ class App extends React.Component {
   }
 
   keyPressed(e) {
-    // e.preventDefault();
     if(e.key==="Enter") this.clickedButton();
   }
 
@@ -58,6 +57,9 @@ class App extends React.Component {
         </div>
       )
     )
+  }
+  updateUsername(event) {
+    this.setState( {username: event.target.value})
   }
 
   update(message = undefined) {
@@ -82,12 +84,15 @@ class App extends React.Component {
     return (
       <div className="App">
         <header className="App-header">
-          Simple chat client
         </header>
         <div className="container">
-          <div className="send">Send message</div>
-          <input type="text" placeholder="Enter name of chatroom"/>
-          <input type="text" placeholder="Enter your username"/>
+          <div className="intro">
+            Simple Chat App - MERN Demo
+          </div>
+          <div className="userData">
+            <input className="chatroom" name="chatroom" onChange={ e => this.findChatroom(e) } type="text" placeholder="Enter name of chatroom"/>
+            <input className="username" name="username" onChange={ e => this.updateUsername(e) } type="text" placeholder="Enter your username"/>
+          </div>
           <textarea 
             name="message" 
             id="message" 
@@ -98,15 +103,17 @@ class App extends React.Component {
             onChange = { e => this.handleChange(e) }
             value = {this.state.currentMessage}
           />
-          <button className="clearChatWindow" onClick={() => this.clearChatWindow() }>Clear chat</button>
-          <button 
-            className="btn" 
-            onClick={() => this.clickedButton() }
-          >
-              Send
-          </button>
-          <div id="messages"></div>
-          <div className="reacted">{this.getChatWindow()}</div>
+          <div className="buttons">
+            <button className="btn clearChatWindow" onClick={() => this.clearChatWindow() }>Clear chat</button>
+            <button 
+              className="btn sendMessage" 
+              onClick={() => this.clickedButton() }
+            >
+                Send
+            </button>          
+          </div>
+
+          <div className="chatWindow">{this.getChatWindow()}</div>
         </div>
       </div>
     );
