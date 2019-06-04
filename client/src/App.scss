@@ -1,4 +1,7 @@
-$buttonColor: #ffaa55;
+$buttonColor: #ee9955;
+$lightText: #fafafa;
+$lightBackground: #eeeeee;
+$darkText: #333333;
 
 * {
     margin: 0;
@@ -13,7 +16,7 @@ body {
 
 .intro {
     text-align: center;
-    color: #fafafa;
+    color: $lightText;
     font-size: 1.7rem;
     margin: 1rem;
     font-weight: bold;
@@ -37,13 +40,17 @@ body {
     position: relative;
     display: flex;
     justify-content: center;
-    * {
-        padding: .5em;
-        margin: 1rem;
-        height: 1.5rem;
-        border: none;
-        background-color: #fafafa;
+    .titles {
+        color: $lightText;
+        * {
+            padding: .5em;
+            margin: 1rem;
+            height: 1.5rem;
+            border: none;
+            background-color: $lightText;
+        }
     }
+
 }
 
 #message {
@@ -54,12 +61,14 @@ body {
 }
 
 .chatWindow {
+    overflow: scroll;
     align-self: center;
     width: 80%;
     margin-top: 1rem;
     padding: 0.5rem;
-    min-height: 20vh;
-    background: #eeeeee;
+    height: 40vh;
+    color: $darkText;
+    background: $lightBackground;
 }
 .buttons {
     margin-top: 1rem;
@@ -73,7 +82,7 @@ body {
     border-radius: 50px;
     width: 5rem;
     height: 2rem;
-    color: #333333;
+    color: $lightText;
     background-color: $buttonColor;
 
     &.sendMessage {

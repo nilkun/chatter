@@ -79,7 +79,9 @@ class App extends React.Component {
     .then(res => this.setState({messages: res.reverse()}))
     .catch(error => console.log("Something went wrong\n", error))  
   }
-
+  findChatroom() {
+    // Create a new chatroom, or join one
+  }
   render() { 
     return (
       <div className="App">
@@ -90,9 +92,12 @@ class App extends React.Component {
             Simple Chat App - MERN Demo
           </div>
           <div className="userData">
-            <input className="chatroom" name="chatroom" onChange={ e => this.findChatroom(e) } type="text" placeholder="Enter name of chatroom"/>
-            <input className="username" name="username" onChange={ e => this.updateUsername(e) } type="text" placeholder="Enter your username"/>
+            <div className="titles">Current chatroom:
+              <input className="chatroom" name="chatroom" onChange={ e => this.findChatroom(e) } type="text" placeholder="Enter name of chatroom"/>
+            </div>
+            <div className="titles">Username:<input className="username" name="username" onChange={ e => this.updateUsername(e) } type="text" placeholder="Enter your username"/>
           </div>
+            </div>
           <textarea 
             name="message" 
             id="message" 
